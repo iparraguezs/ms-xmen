@@ -1,0 +1,8 @@
+---
+spring:
+  profiles: default
+message: "I'Am, alive local!"
+---
+spring:
+  profiles: production
+message: "I'Am, alive App Engine!"
