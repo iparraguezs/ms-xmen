@@ -5,15 +5,12 @@ import com.meli.xmen.model.mutant.DNARequest;
 import com.meli.xmen.model.stats.StatsResponse;
 import com.meli.xmen.repository.TypePersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
-import java.util.List;
 
 @Service
 public class XMenServiceImpl implements XMenService{
@@ -39,8 +36,8 @@ public class XMenServiceImpl implements XMenService{
         BigDecimal mutant = typePersonRepository.countByismutant(true);
         BigDecimal human = typePersonRepository.countByismutant(false);
         return ResponseEntity.ok().body(StatsResponse.builder().
-                count_mutant_dna(mutant.intValue()).
-                count_human_dna(human.intValue()).
+                countMutantDna(mutant.intValue()).
+                countHumanDna(human.intValue()).
                 ratio(BigDecimal.ZERO.compareTo(human)==0?BigDecimal.ZERO:mutant.divide(human,2,RoundingMode.HALF_UP)).
                 build());
     }

@@ -1,8 +1,6 @@
 package com.meli.xmen.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.UUID;
 

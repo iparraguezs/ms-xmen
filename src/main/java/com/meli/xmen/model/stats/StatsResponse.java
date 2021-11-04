@@ -1,5 +1,6 @@
 package com.meli.xmen.model.stats;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,7 +13,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 public class StatsResponse {
-    Integer count_mutant_dna;
-    Integer count_human_dna;
+    @JsonProperty("count_mutant_dna")
+    Integer countMutantDna;
+    @JsonProperty("count_human_dna")
+    Integer countHumanDna;
     BigDecimal ratio;
 }

@@ -1,5 +1,6 @@
 package com.meli.xmen.controller;
 
+import com.meli.xmen.entity.TypePerson;
 import com.meli.xmen.model.mutant.DNARequest;
 import com.meli.xmen.repository.TypePersonRepository;
 import com.meli.xmen.service.XMenService;
@@ -12,9 +13,11 @@ import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class AnalizeDNATest extends BaseTestCase{
@@ -28,7 +31,6 @@ public class AnalizeDNATest extends BaseTestCase{
 
     @Test
     public void isMutant(){
-        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.OK);
         List<String> adn = new ArrayList<>();
         adn.add("ATGCGA");
         adn.add("CTGTGC");
@@ -37,13 +39,14 @@ public class AnalizeDNATest extends BaseTestCase{
         adn.add("CCCCTA");
         adn.add("TCACTG");
         DNARequest dnaRequest = new DNARequest(adn);
-        when(xMenService.request(dnaRequest)).thenReturn(responseEntity);
-        Assert.assertEquals(responseEntity.getStatusCode(),HttpStatus.OK);
+
+        when(typePersonRepository.save(TypePerson.builder().build())).thenReturn(any());
+        ResponseEntity responseEntity = xMenService.request(dnaRequest);
+        Assert.assertEquals(responseEntity.getStatusCode().value(),HttpStatus.OK.value());
     }
 
     @Test
     public void isHuman(){
-        ResponseEntity responseEntity = new ResponseEntity(HttpStatus.FORBIDDEN);
         List<String> adn = new ArrayList<>();
         adn.add("ATGCGA");
         adn.add("CAGTGC");
@@ -52,7 +55,9 @@ public class AnalizeDNATest extends BaseTestCase{
         adn.add("GCGTCA");
         adn.add("TCACTG");
         DNARequest dnaRequest = new DNARequest(adn);
-        when(xMenService.request(dnaRequest)).thenReturn(responseEntity);
-        Assert.assertEquals(responseEntity.getStatusCode(),HttpStatus.FORBIDDEN);
+
+        when(typePersonRepository.save(TypePerson.builder().build())).thenReturn(any());
+        ResponseEntity responseEntity = xMenService.request(dnaRequest);
+        Assert.assertEquals(responseEntity.getStatusCode().value(),HttpStatus.FORBIDDEN.value());
     }
 }
