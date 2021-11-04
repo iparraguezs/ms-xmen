@@ -12,9 +12,9 @@ public class DatasourceConfig {
     public DataSource datasource() {
         return DataSourceBuilder.create()
                 .driverClassName("org.postgresql.Driver")
-                .url("jdbc:postgresql://localhost:5432/postgres")
+                .url("jdbc:postgresql://meli-330714:us-central1:melidb")
                 .username("postgres")
-                .password("secure_pass_here")
+                .password("postgres")
                 .build();
     }
 }
