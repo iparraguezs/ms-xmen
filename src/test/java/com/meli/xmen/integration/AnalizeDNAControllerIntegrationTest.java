@@ -1,4 +1,4 @@
-package com.meli.xmen.controller;
+package com.meli.xmen.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
