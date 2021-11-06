@@ -3,21 +3,20 @@ package com.meli.xmen.controller;
 import com.meli.xmen.entity.TypePerson;
 import com.meli.xmen.model.mutant.DNARequest;
 import com.meli.xmen.repository.TypePersonRepository;
-import com.meli.xmen.service.XMenService;
 import com.meli.xmen.service.XMenServiceImpl;
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 public class AnalizeDNATest extends BaseTestCase{
@@ -40,7 +39,7 @@ public class AnalizeDNATest extends BaseTestCase{
         adn.add("TCACTG");
         DNARequest dnaRequest = new DNARequest(adn);
 
-        when(typePersonRepository.save(TypePerson.builder().build())).thenReturn(any());
+        when(typePersonRepository.save(TypePerson.builder().build())).thenReturn(anyInt());
         ResponseEntity responseEntity = xMenService.request(dnaRequest);
         Assert.assertEquals(responseEntity.getStatusCode().value(),HttpStatus.OK.value());
     }
@@ -56,7 +55,7 @@ public class AnalizeDNATest extends BaseTestCase{
         adn.add("TCACTG");
         DNARequest dnaRequest = new DNARequest(adn);
 
-        when(typePersonRepository.save(TypePerson.builder().build())).thenReturn(any());
+        when(typePersonRepository.save(TypePerson.builder().build())).thenReturn(anyInt());
         ResponseEntity responseEntity = xMenService.request(dnaRequest);
         Assert.assertEquals(responseEntity.getStatusCode().value(),HttpStatus.FORBIDDEN.value());
     }

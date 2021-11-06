@@ -1,13 +1,23 @@
 package com.meli.xmen.repository;
 
+
 import com.meli.xmen.entity.TypePerson;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Repository
-public interface TypePersonRepository extends JpaRepository<TypePerson, UUID> {
-    BigDecimal countByismutant(Boolean ismutant);
+public class TypePersonRepository  {
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    public BigDecimal countByismutant(Boolean isMutant){
+        return jdbcTemplate.queryForObject("select count(*) from type_person where ismutant=?",new Boolean[]{isMutant},BigDecimal.class);
+    }
+
+    public int save(TypePerson typePerson){
+        return jdbcTemplate.update("insert into type_person (dna,ismutant) values(?,?)",typePerson.getDna(),typePerson.getIsmutant());
+    }
 }

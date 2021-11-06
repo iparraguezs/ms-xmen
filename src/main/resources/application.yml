@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ms-xmen
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: "jdbc:mysql://google/xmendb?cloudSqlInstance=mercado-libre-331317:southamerica-east1:xmendbinstance&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=root&password=root"
+    password: "root"
+    username: "root"
+    testOnBorrow: true
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    max-active: 15
+    max-idle: 10
+    max-wait: 8000

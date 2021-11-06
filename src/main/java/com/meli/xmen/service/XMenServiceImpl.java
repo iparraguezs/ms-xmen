@@ -16,7 +16,6 @@ import java.math.RoundingMode;
 public class XMenServiceImpl implements XMenService{
 
 
-
     @Autowired
     private  TypePersonRepository typePersonRepository;
 

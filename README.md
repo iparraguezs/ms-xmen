@@ -16,6 +16,10 @@ Rest api that analyzes the DNA and is able to recognize if it is human or mutant
 ## How to up Proyect ms-xmen
 * Execute command docker ``` docker ```
 * Execute command mvn ```mvn spring-boot:run```
+  springboot-gcp-cloudsql-instance
+
+
+gcloud sql connect  springboot-gcp-cloudsql-instance --user=rootroot
 
 ## Use
 

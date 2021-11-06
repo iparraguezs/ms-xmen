@@ -1,6 +1,6 @@
 package com.meli.xmen.controller;
 
-import com.meli.xmen.entity.TypePerson;
+import com.meli.xmen.model.stats.StatsResponse;
 import com.meli.xmen.service.XMenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ public class StatsDNAController {
     private final XMenService xMenService;
 
     @GetMapping
-    public ResponseEntity<TypePerson> stats( ) {
+    public ResponseEntity<StatsResponse> stats( ) {
         return xMenService.statistics();
     }
 }
