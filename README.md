@@ -5,6 +5,18 @@ Rest api that analyzes the DNA and is able to recognize if it is human or mutant
 * Java 11 https://jdk.java.net/11/
 * docker https://hub.docker.com/
 * mvn https://maven.apache.org/download.cgi
+* 
+  docker run -p 3306:3306 --name xmendbinstance -e MYSQL_ROOT_PASSWORD=root -d mysql
+* docker exec -it xmendbinstance /bin/sh
+* mysql -u root -p and enter password root
+* create database xmendb;
+* use xmendb
+* CREATE TABLE type_person (  
+   id int (11) AUTO_INCREMENT,  
+   dna varchar (150) NOT NULL,  
+   ismutant bool  NOT NULL,  
+   PRIMARY KEY (id)
+   );
 
 ## Required Analize Sonar
 * Execute command docker ```docker run -d --name sonarqube -p 9000:9000 sonarqube:7.5-community```
