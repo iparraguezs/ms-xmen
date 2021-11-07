@@ -15,24 +15,26 @@ Rest api that analyzes the DNA and is able to recognize if it is human or mutant
 * JMeter for test stress https://jmeter.apache.org/download_jmeter.cgi
 * Postman for execute apis https://www.postman.com/downloads/
 * 
-##  How to deploy Project ms-xmen menu locally
+##  How to deploy Project ms-xmen  locally
 * Execute command ```mvn spring-boot:run``` in the root folder ms-xmen
 * Import ms-xmen\postman\Proyect ms-xmen.postman_collection.json
 * Create Global Environment Local--> http://localhost:8080
 ![img\img.png](img/img.png) 
 
-* Create Global Environment GCP Test--> https://mercado-libre-331317.rj.r.appspot.com/
-![img_1.png](img/img_1.png)
-
-* Select the environment with which you will work
-
-* Execute the Send button in the upper right corner
+* Select Environment LOCAL and Execute the Send button in the upper right corner
 ![img_3.png](img/img_3.png)
 
-* Select the local environment if you want to work with the **LOCAL** project or Select the **GCP TEST** if you want to work with the api deployed in Google cloud
 
 ##  How to deploy Project ms-xmen GOOGLE CLOUD 
+* Create Global Environment GCP Test--> https://mercado-libre-331317.rj.r.appspot.com/
+  ![img_1.png](img/img_1.png)
 Execute command ```mvn -DskipTests package appengine:deploy```, To deploy in google cloud, it is necessary to be a collaborator of the project, please contact ips.nuevo@gmail.com to be added
+
+##  Another way to consume the service by Swagger
+* Local  --> http://localhost:8080/swagger-ui/#/
+* GCP    --> https://mercado-libre-331317.rj.r.appspot.com/swagger-ui/#/
+
+![swagger.png](img/swagger/img.png)
 
 ## Required Analize Sonar
 * Execute command ```mvn clean package``` 
