@@ -10,7 +10,7 @@ public interface XMenService {
      * @param @DNARequest.
      * @return Boolean
      */
-    ResponseEntity request(DNARequest id);
+    ResponseEntity analizeDNA(DNARequest id);
     ResponseEntity statistics();
 
 }

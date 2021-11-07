@@ -53,7 +53,6 @@ public class AnalizeDNAControllerIntegrationTest {
         adn.add("AGAAGG");
         adn.add("CCCCTA");
         adn.add("TCACTG");
-
         String json ="{\"dna\":"+ asJsonString(adn)+"}";
         System.out.println("JSON: "+json);
         mvc.perform( MockMvcRequestBuilders
@@ -62,6 +61,43 @@ public class AnalizeDNAControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testInvalidStructureDNA() throws Exception {
+        adn.add("ATGCGA");
+        adn.add("CTGTGC");
+        adn.add("TTATGT");
+        adn.add("AGAAGG");
+        adn.add("CCCCTA");
+
+        String json ="{\"dna\":"+ asJsonString(adn)+"}";
+        System.out.println("JSON: "+json);
+        mvc.perform( MockMvcRequestBuilders
+                        .post("/mutant/")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void testInvalidNitrogenBase() throws Exception {
+        adn.add("ATGCGH");
+        adn.add("CTGTGC");
+        adn.add("TTATGT");
+        adn.add("AGAAGG");
+        adn.add("CCCCTA");
+        adn.add("TCACTG");
+
+        String json ="{\"dna\":"+ asJsonString(adn)+"}";
+        System.out.println("JSON: "+json);
+        mvc.perform( MockMvcRequestBuilders
+                        .post("/mutant/")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
     }
 
     public static String asJsonString(final Object obj) {

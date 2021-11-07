@@ -1,17 +1,23 @@
 package com.meli.xmen.service;
 
+
 import com.meli.xmen.entity.TypePerson;
+import com.meli.xmen.exception.DNAStructureException;
+import com.meli.xmen.exception.InvalidNitrogenBaseException;
 import com.meli.xmen.model.mutant.DNARequest;
 import com.meli.xmen.model.stats.StatsResponse;
 import com.meli.xmen.repository.TypePersonRepository;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Slf4j
 @Service
 public class XMenServiceImpl implements XMenService{
 
@@ -19,15 +25,35 @@ public class XMenServiceImpl implements XMenService{
     @Autowired
     private  TypePersonRepository typePersonRepository;
 
+    @Setter
+    @Value("${spring.application.dna.default-size-arr}")
+    private Integer defaultSizeArr;
+
     @Override
-    public ResponseEntity request(DNARequest dnaRequest)   {
-        char[][] dna = loadDNAStructure(dnaRequest);
-        Integer count = countSecuenceHorizontal(dna)+countSequenceVertical(dna);
+    public ResponseEntity analizeDNA(DNARequest dnaRequest)   {
+        validateDNAConsistency(dnaRequest);
+        Boolean isMutant = isMutant(dnaRequest);
         typePersonRepository.save(TypePerson.builder().
                 dna(dnaRequest.getDna().toString()).
-                ismutant(count>1?Boolean.TRUE:Boolean.FALSE).
+                ismutant(isMutant).
                 build());
-        return responseEntity(count);
+        return responseEntity(isMutant);
+    }
+
+    private Boolean isMutant(DNARequest dnaRequest) {
+        char[][] dna = loadDNAStructure(dnaRequest);
+        Integer count = countSecuenceHorizontal(dna)+countSequenceVertical(dna);
+        Boolean isMutant=count>1?Boolean.TRUE:Boolean.FALSE;
+        return isMutant;
+    }
+
+
+    private void validateDNAConsistency(DNARequest dnaRequest) {
+        if (dnaRequest.getDna().size() < defaultSizeArr) {
+            throw new DNAStructureException(dnaRequest.getDna().size(), defaultSizeArr);
+        } else if (dnaRequest.getDna().stream().filter(dnaAnalized->dnaAnalized.matches(".*[^ATCG].*")).count()>0) {
+            throw new InvalidNitrogenBaseException();
+        }
     }
 
     @Override
@@ -93,14 +119,13 @@ public class XMenServiceImpl implements XMenService{
 
 
 
-
     /**
      * Method returns Is Mutant 200 ok and is != 403
-     * @param countRepeatDNA
+     * @param isMutant
      * @return
      */
-    private ResponseEntity responseEntity(Integer countRepeatDNA){
-        if(countRepeatDNA>1){
+    private ResponseEntity responseEntity(Boolean isMutant){
+        if(isMutant){
             return ResponseEntity.ok().build();
         }else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

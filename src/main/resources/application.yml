@@ -3,6 +3,9 @@ spring:
   profiles: default
   application:
     name: ms-xmen
+    dna:
+      default-size-arr: 6
+      default-count-mutant: 2
   datasource:
     driverClassName: org.h2.Driver
     url: "jdbc:h2:mem:%s;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
@@ -19,6 +22,9 @@ spring:
   profiles: production
   application:
     name: ms-xmen
+    dna:
+      default-size-arr: 6
+      default-count-mutant: 2
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: "jdbc:mysql://google/xmendb?cloudSqlInstance=mercado-libre-331317:southamerica-east1:xmendbinstance&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=root&password=root"
