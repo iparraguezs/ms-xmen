@@ -1,4 +1,4 @@
-package com.meli.xmen.controller;
+package com.meli.xmen.junit;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.MockitoAnnotations;

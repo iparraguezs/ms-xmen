@@ -1,4 +1,4 @@
-package com.meli.xmen.controller;
+package com.meli.xmen.junit;
 
 import com.meli.xmen.entity.TypePerson;
 import com.meli.xmen.model.mutant.DNARequest;

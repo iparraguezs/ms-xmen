@@ -12,6 +12,7 @@ Rest api that analyzes the DNA and is able to recognize if it is human or mutant
 * Java 11 https://jdk.java.net/11/
 * docker https://hub.docker.com/
 * mvn https://maven.apache.org/download.cgi
+* JMeter for test stress https://jmeter.apache.org/download_jmeter.cgi
 
 ##  How to deploy Project ms-xmen menu locally
 * Execute command ```mvn spring-boot:run``` in the root folder ms-xmen
@@ -39,10 +40,21 @@ Execute command ```mvn -DskipTests package appengine:deploy```, To deploy in goo
 * Go to: http://localhost:9000/account/security/ and generate a token.
 * To analyze the project run the command ```mvn sonar:sonar -Dsonar.host.url=http://localhost:9000   -Dsonar.login=REPLACE_ID_GENERATED```
 
-![img.png](img/diagrams/sonar/img.png)
+## Sonar Evicence
+![img.png](img/sonar/img.png)
+
+## Required Analize JMeter Test Stress
+* Import ms-api.jmx file located in the path ms-xmen\jmeter and play button Start
 
 
-gcloud sql connect  springboot-gcp-cloudsql-instance --user=rootroot
+## JMeter Test Stress Evidence
+* Shows 100 requests all successful, for api https://mercado-libre-331317.rj.r.appspot.com/stats/
+![stats.png](img/jmeter/stats.png)
+* Shows 100 requests all successful, for api https://mercado-libre-331317.rj.r.appspot.com/mutant/
+![mutant.png](img/jmeter/mutant.png)
+
+
+
 
 
 
