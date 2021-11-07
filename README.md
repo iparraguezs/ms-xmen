@@ -13,7 +13,8 @@ Rest api that analyzes the DNA and is able to recognize if it is human or mutant
 * docker https://hub.docker.com/
 * mvn https://maven.apache.org/download.cgi
 * JMeter for test stress https://jmeter.apache.org/download_jmeter.cgi
-
+* Postman for execute apis https://www.postman.com/downloads/
+* 
 ##  How to deploy Project ms-xmen menu locally
 * Execute command ```mvn spring-boot:run``` in the root folder ms-xmen
 * Import ms-xmen\postman\Proyect ms-xmen.postman_collection.json
@@ -34,13 +35,14 @@ Rest api that analyzes the DNA and is able to recognize if it is human or mutant
 Execute command ```mvn -DskipTests package appengine:deploy```, To deploy in google cloud, it is necessary to be a collaborator of the project, please contact ips.nuevo@gmail.com to be added
 
 ## Required Analize Sonar
+* Execute command ```mvn clean package``` 
 * Execute command docker ```docker run -d --name sonarqube -p 9000:9000 sonarqube:7.5-community```
 * verify docker up with command ```docker ps``` verify that it is up ```75264b55f36e   sonarqube:7.5-community   "./bin/run.sh"           14 minutes ago   Up 14 minutes   0.0.0.0:9000->9000/tcp   sonarqube```
 * Wait for the server to start and log in to SonarQube server on http://localhost:9000 using default credentials: login: admin password: admin
 * Go to: http://localhost:9000/account/security/ and generate a token.
 * To analyze the project run the command ```mvn sonar:sonar -Dsonar.host.url=http://localhost:9000   -Dsonar.login=REPLACE_ID_GENERATED```
 
-## Sonar Evicence
+## Sonar Evidence
 ![img.png](img/sonar/img.png)
 
 ## Required Analize JMeter Test Stress
