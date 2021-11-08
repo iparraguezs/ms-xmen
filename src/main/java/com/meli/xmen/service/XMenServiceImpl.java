@@ -4,6 +4,7 @@ package com.meli.xmen.service;
 import com.meli.xmen.entity.TypePerson;
 import com.meli.xmen.exception.DNAStructureException;
 import com.meli.xmen.exception.InvalidNitrogenBaseException;
+import com.meli.xmen.logic.BussinesLogic;
 import com.meli.xmen.model.mutant.DNARequest;
 import com.meli.xmen.model.stats.StatsResponse;
 import com.meli.xmen.repository.TypePersonRepository;
@@ -19,7 +20,7 @@ import java.math.RoundingMode;
 
 @Slf4j
 @Service
-public class XMenServiceImpl implements XMenService{
+public class XMenServiceImpl extends BussinesLogic implements XMenService{
 
 
     @Autowired
@@ -28,6 +29,8 @@ public class XMenServiceImpl implements XMenService{
     @Setter
     @Value("${spring.application.dna.default-size-arr}")
     private Integer defaultSizeArr;
+
+
 
     @Override
     public ResponseEntity analizeDNA(DNARequest dnaRequest)   {
@@ -42,11 +45,10 @@ public class XMenServiceImpl implements XMenService{
 
     private Boolean isMutant(DNARequest dnaRequest) {
         char[][] dna = loadDNAStructure(dnaRequest);
-        Integer count = countSecuenceHorizontal(dna)+countSequenceVertical(dna);
+        Integer count = getCountSequenceMutant(dna);
         Boolean isMutant=count>1?Boolean.TRUE:Boolean.FALSE;
         return isMutant;
     }
-
 
     private void validateDNAConsistency(DNARequest dnaRequest) {
         if (dnaRequest.getDna().size() < defaultSizeArr) {
@@ -66,58 +68,6 @@ public class XMenServiceImpl implements XMenService{
                 ratio(BigDecimal.ZERO.compareTo(human)==0?BigDecimal.ZERO:mutant.divide(human,2,RoundingMode.HALF_UP)).
                 build());
     }
-
-    private int countSecuenceHorizontal(char[][] arr){
-        int countSequenceRepeat=0;
-        for (int firstArray = 0; firstArray < 6; firstArray++) {
-            for (int letterDNA = 0; letterDNA < 6; letterDNA++) {
-                if (6-letterDNA>=4) {
-                    if (arr[firstArray][letterDNA] == arr[firstArray][letterDNA+ 1] && arr[firstArray][letterDNA] == arr[firstArray][letterDNA + 2] && arr[firstArray][letterDNA] == arr[firstArray][letterDNA + 3]) {
-                        countSequenceRepeat++;
-                        letterDNA = letterDNA + 3;
-                        if (countSequenceRepeat>1){
-                            return countSequenceRepeat;
-                        }
-                    }
-                }
-            }
-        }
-        return countSequenceRepeat;
-    }
-
-    static int countSequenceVertical(char[][] arr){
-        int countSecuenceVert=0;
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 6; j++) {
-                if (6-i>=4) {
-                    if (arr[i][j] == arr[i+1][j] &&
-                            arr[i][j] == arr[i+2][j] &&
-                            arr[i][j] == arr[i+3][j]
-                    ) {
-                        countSecuenceVert++;
-                        j = j + 3;
-                        if (countSecuenceVert>1){
-                            return (countSecuenceVert);
-                        }
-                    }
-                }
-            }
-        }
-        return countSecuenceVert;
-    }
-
-    private char[][] loadDNAStructure(DNARequest dnaRequest) {
-        int vectorLength = dnaRequest.getDna().size();
-        char[][] dna = new char[vectorLength][vectorLength];
-
-        for (int i = 0; i < vectorLength; i++) {
-            String dnaRow = dnaRequest.getDna().get(i);
-            dna[i] = dnaRow.toUpperCase().toCharArray();
-        }
-        return dna;
-    }
-
-
 
     /**
      * Method returns Is Mutant 200 ok and is != 403

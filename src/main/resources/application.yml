@@ -6,6 +6,7 @@ spring:
     dna:
       default-size-arr: 6
       default-count-mutant: 2
+      default-diagonal-size: 6
   datasource:
     driverClassName: org.h2.Driver
     url: "jdbc:h2:mem:%s;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"

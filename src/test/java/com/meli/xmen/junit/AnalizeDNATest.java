@@ -21,7 +21,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
-public class AnalizeDNATest extends BaseTestCase{
+public class AnalizeDNATest extends BaseTestCase {
 
     @InjectMocks
     private XMenServiceImpl xMenService;
@@ -29,10 +29,12 @@ public class AnalizeDNATest extends BaseTestCase{
     @Mock
     TypePersonRepository typePersonRepository;
 
+    Integer defaultDiagonalSize = 6;
 
     @Test
-    public void isMutant(){
+    public void isMutantTest() {
         xMenService.setDefaultSizeArr(6);
+        xMenService.setDefaultDiagonalSize(6);
         List<String> adn = new ArrayList<>();
         adn.add("ATGCGA");
         adn.add("CTGTGC");
@@ -43,12 +45,13 @@ public class AnalizeDNATest extends BaseTestCase{
         DNARequest dnaRequest = new DNARequest(adn);
         when(typePersonRepository.save(TypePerson.builder().build())).thenReturn(anyInt());
         ResponseEntity responseEntity = xMenService.analizeDNA(dnaRequest);
-        Assert.assertEquals(responseEntity.getStatusCode().value(),HttpStatus.OK.value());
+        Assert.assertEquals(responseEntity.getStatusCode().value(), HttpStatus.OK.value());
     }
 
     @Test
-    public void isHuman(){
+    public void isHumanTest() {
         xMenService.setDefaultSizeArr(6);
+        xMenService.setDefaultDiagonalSize(6);
         List<String> adn = new ArrayList<>();
         adn.add("ATGCGA");
         adn.add("CAGTGC");
@@ -59,11 +62,11 @@ public class AnalizeDNATest extends BaseTestCase{
         DNARequest dnaRequest = new DNARequest(adn);
         when(typePersonRepository.save(TypePerson.builder().build())).thenReturn(anyInt());
         ResponseEntity responseEntity = xMenService.analizeDNA(dnaRequest);
-        Assert.assertEquals(responseEntity.getStatusCode().value(),HttpStatus.FORBIDDEN.value());
+        Assert.assertEquals(responseEntity.getStatusCode().value(), HttpStatus.FORBIDDEN.value());
     }
 
     @Test
-    public void validateStructureTest(){
+    public void validateStructureTest() {
         Integer defaultSizeArr = 6;
         List<String> adn = new ArrayList<>();
         adn.add("ATGCGA");
@@ -76,11 +79,11 @@ public class AnalizeDNATest extends BaseTestCase{
         DNAStructureException thrown = Assertions.assertThrows(DNAStructureException.class, () -> {
             xMenService.analizeDNA(dnaRequest);
         });
-        Assert.assertEquals(thrown.getMessage(),"DNA Structure Expected: 5 and found: 6");
+        Assert.assertEquals(thrown.getMessage(), "DNA Structure Expected: 5 and found: 6");
     }
 
     @Test
-    public void validateNitrogenBaseTest(){
+    public void validateNitrogenBaseTest() {
         Integer defaultSizeArr = 6;
         List<String> adn = new ArrayList<>();
         adn.add("ATGCHA");
@@ -94,6 +97,7 @@ public class AnalizeDNATest extends BaseTestCase{
         InvalidNitrogenBaseException thrown = Assertions.assertThrows(InvalidNitrogenBaseException.class, () -> {
             xMenService.analizeDNA(dnaRequest);
         });
-        Assert.assertEquals(thrown.getMessage(),"Base nitrogen only accept A T C G");
+        Assert.assertEquals(thrown.getMessage(), "Base nitrogen only accept A T C G");
     }
-    }
+
+}

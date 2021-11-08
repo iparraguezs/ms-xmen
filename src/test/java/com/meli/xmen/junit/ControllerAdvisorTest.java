@@ -1,5 +1,8 @@
-package com.meli.xmen.exception;
+package com.meli.xmen.junit;
 
+import com.meli.xmen.exception.ControllerAdvisor;
+import com.meli.xmen.exception.DNAStructureException;
+import com.meli.xmen.exception.InvalidNitrogenBaseException;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
