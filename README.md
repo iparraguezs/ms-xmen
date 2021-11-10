@@ -48,7 +48,7 @@ Execute command ```mvn -DskipTests package appengine:deploy```, To deploy in goo
 ![img.png](img/sonar/img.png)
 
 ## Test
-* The test folder contains 2 types, the unit tests, and the integration test, which performs an end-to-end test
+* The test folder contains 2 types, the unit tests, and the integration test, which performs an end-to-end test, execute command ```mvn test```
 ![img.png](img/integrationtest/img.png)
 
 ## Required Analize JMeter Test Stress
