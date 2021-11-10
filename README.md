@@ -46,8 +46,17 @@ Execute command ```mvn -DskipTests package appengine:deploy```, To deploy in goo
 
 ## Sonar Evidence
 ![img.png](img/sonar/img.png)
+
+## Test
+* The test folder contains 2 types, the unit tests, and the integration test, which performs an end-to-end test
+![img.png](img/integrationtest/img.png)
+
 ## Required Analize JMeter Test Stress
-* Import ms-api.jmx file located in the path ms-xmen\jmeter and play button Start
+* Import ms-api.jmx file located in the path ms-xmen\src\test\jmeter\ms-api.jmx and play button Start
+
+## Another way to execute command 
+* Execute command ```mvn clean verify```, this command will execute the performance tests previously configured in the ms-api.jmx file
+![commandmvn.png](img/jmeter/commandmvn.png)
 
 
 ## JMeter Test Stress Evidence
