@@ -54,6 +54,10 @@ Execute command ```mvn -DskipTests package appengine:deploy```, To deploy in goo
 ## Required Analize JMeter Test Stress
 * Import ms-api.jmx file located in the path ms-xmen\jmeter and play button Start
 
+## Another way to execute command 
+* Execute command ```mvn clean verify```, this command will execute the performance tests previously configured in the ms-api.jmx file
+![commandmvn.png](img/jmeter/commandmvn.png)
+
 
 ## JMeter Test Stress Evidence
 * Shows 100 requests all successful, for api https://mercado-libre-331317.rj.r.appspot.com/stats/
